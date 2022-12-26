@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+//   // "postgresql://johndoe:mypassword@localhost:5432/mydb?schema=public"
+// }
+
+model Company {
+  id           String   @id
+  name         String
+  cnpj         String
+  city         String
+  coordenatesX Float
+  coordenatesY Float
+  createdAt    DateTime @default(now())
+  informations String
+}
