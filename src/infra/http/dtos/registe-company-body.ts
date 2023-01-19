@@ -1,21 +1,25 @@
-import { IsNotEmpty, Length } from 'class-validator';
+import { IsNotEmpty, Length, Min, Max } from 'class-validator';
 
 export class RegisterCompanyBody {
   @IsNotEmpty()
+  @Length(3, 100)
   name: string;
 
   @IsNotEmpty()
   cnpj: string;
 
   @IsNotEmpty()
+  @Length(3, 100)
   city: string;
 
   @IsNotEmpty()
-  @Length(5, 15)
+  @Min(-150)
+  @Max(150)
   coordenatesX: number;
 
   @IsNotEmpty()
-  @Length(5, 15)
+  @Min(-80)
+  @Max(80)
   coordenatesY: number;
 
   informations: string;

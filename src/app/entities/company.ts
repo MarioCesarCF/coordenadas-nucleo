@@ -1,24 +1,21 @@
 import { Replace } from 'src/helpers/Replace';
 import { randomUUID } from 'node:crypto';
 
-export interface CompaniesProps {
+export interface CompanyProps {
   name: string;
   cnpj: string;
   city: string;
   createdAt: Date;
   coordenatesX: number;
   coordenatesY: number;
-  informations?: string;
+  informations?: string | null;
 }
 
 export class Company {
   private _id: string;
-  private props: CompaniesProps;
+  private props: CompanyProps;
 
-  constructor(
-    props: Replace<CompaniesProps, { createdAt?: Date }>,
-    id?: string,
-  ) {
+  constructor(props: Replace<CompanyProps, { createdAt?: Date }>, id?: string) {
     this._id = id ?? randomUUID();
     this.props = {
       ...props,

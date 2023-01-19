@@ -22,8 +22,14 @@ export class RegisterCompany {
   async execute(
     request: IRegisterCompanyRequest,
   ): Promise<IRegisterCompanyResponse> {
-    const { name, cnpj, city, coordenatesX, coordenatesY, informations } =
-      request;
+    const {
+      name,
+      cnpj,
+      city,
+      coordenatesX,
+      coordenatesY,
+      informations = 'Sem informações.',
+    } = request;
 
     const company = new Company({
       name,

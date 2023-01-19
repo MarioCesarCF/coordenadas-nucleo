@@ -7,12 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// datasource db {
-//   provider = "postgresql"
-//   url      = env("DATABASE_URL")
-//   // "postgresql://johndoe:mypassword@localhost:5432/mydb?schema=public"
-// }
-
 model Company {
   id           String   @id
   name         String
@@ -21,5 +15,5 @@ model Company {
   coordenatesX Float
   coordenatesY Float
   createdAt    DateTime @default(now())
-  informations String
+  informations String?
 }

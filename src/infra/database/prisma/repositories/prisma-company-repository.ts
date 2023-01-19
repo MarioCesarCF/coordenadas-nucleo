@@ -8,6 +8,18 @@ import { PrismaService } from '../prisma.service';
 export class PrismaCompanyRepository implements CompanyRepository {
   constructor(private prismaService: PrismaService) {}
 
+  async findManyByCity(city: string): Promise<Company[]> {
+    const companies = await this.prismaService.company.findMany({
+      where: {
+        city,
+      },
+    });
+
+    return companies.map((company) => {
+      return PrismaCompanyMapper.toDomain(company);
+    });
+  }
+
   async findManyByName(name: string): Promise<Company[]> {
     const companies = await this.prismaService.company.findMany({
       where: {
