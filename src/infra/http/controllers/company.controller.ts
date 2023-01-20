@@ -1,4 +1,5 @@
 import { GetCityCompany } from '@app/use-cases/get-city-company';
+import { GetCnpjCompany } from '@app/use-cases/get-cnpj-company';
 import { GetNameCompany } from '@app/use-cases/get-name-company';
 import { RegisterCompany } from '@app/use-cases/register-company';
 import { Body, Controller, Post, Get, Param } from '@nestjs/common';
@@ -11,9 +12,21 @@ export class CompanyController {
     private registerCompany: RegisterCompany,
     private getCityCompanies: GetCityCompany,
     private getNameCompanies: GetNameCompany,
+    private getCnpjCompanies: GetCnpjCompany,
   ) {}
 
-  @Get('/cityfound/:city')
+  @Get('/cnpj/:cnpj')
+  async getFromCnpj(@Param('cnpj') cnpj: string) {
+    const { companies } = await this.getCnpjCompanies.execute({
+      cnpj,
+    });
+
+    return {
+      companies: companies.map(CompanyViewModel.toHTTP),
+    };
+  }
+
+  @Get('/city/:city')
   async getFromCity(@Param('city') city: string) {
     const { companies } = await this.getCityCompanies.execute({
       city,
@@ -24,7 +37,7 @@ export class CompanyController {
     };
   }
 
-  @Get('/namefound/:name')
+  @Get('/name/:name')
   async getFromName(@Param('name') name: string) {
     const { companies } = await this.getNameCompanies.execute({
       name,
